@@ -17,8 +17,6 @@
 
 cmake_minimum_required( VERSION 3.1.0 )
 
-cmake_policy( VERSION 3.14 )
-
 project( date VERSION 2.4.1 )
 
 include( GNUInstallDirs )
@@ -71,12 +69,6 @@ target_sources( date INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include/date/iso_week.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include/date/julian.h>
 )
-# public headers will get installed:
-set_target_properties( date PROPERTIES PUBLIC_HEADER include/date/date.h )
-target_compile_definitions( date INTERFACE
-    #To workaround libstdc++ issue https://github.com/HowardHinnant/date/issues/388
-    ONLY_C_LOCALE=$<IF:$<BOOL:${COMPILE_WITH_C_LOCALE}>,1,0>
-    $<$<BOOL:${DISABLE_STRING_VIEW}>:HAS_STRING_VIEW=0> )
 
 #[===================================================================[
    tz (compiled) library
